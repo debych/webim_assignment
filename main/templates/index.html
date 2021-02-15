@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    {% include 'base.html' %}
+    <style>
+        #random_number{
+            position: fixed;
+            left: 44%;
+            top: 50%;
+            font-size: 50px;
+            font-family: cursive;
+            color: darkcyan
+        }
+        #greeting{
+            position: fixed;
+            top: 50%;
+            left: 35%;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+
+{% if number %}
+    {% csrf_token %}
+    <p id="random_number">{{ number }}</p>
+    <script src="{% static 'main/js/random_number.js' %}"></script>
+{% else %}
+    <p id="greeting">To see the number please use <a href={{ link }}>github login</a></p>
+{% endif %}
+
+</body>
+</html>

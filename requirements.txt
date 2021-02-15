@@ -1,0 +1,6 @@
+redis
+Celery
+django
+celery[redis]
+requests-oauthlib
+jsonpickle

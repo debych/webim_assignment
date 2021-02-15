@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  redis:
+    image: bitnami/redis:latest
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    expose:
+      - '6379'
+  web:
+    build: .
+    image: app
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:666"
+    restart: always
+    volumes:
+      - .:/code
+    ports:
+      - "666:666"
+    links:
+      - redis
+  beat:
+    image: app
+    command: celery -A webim beat
+   #command: python manage.py celery beat
+    restart: always
+    volumes:
+      - .:/code
+    depends_on:
+      - worker
+    links:
+      - redis
+  worker:
+    image: app
+    command: celery -A webim worker
+    #command: python manage.py celery worker
+    restart: always
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+    links:
+      - redis
