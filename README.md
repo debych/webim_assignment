@@ -1,29 +1,16 @@
-# Решение
+# Тестовое задание
 
-Foobar is a Python library for dealing with word pluralization.
+## Использованные технологии
 
-## Installation
+1) Docker + compose
+2) Django
+3) Celery
+4) Redis
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+## Принцип обновления числа
 
-```bash
-pip install foobar
-```
+background task, который независимо обновляет число, находящееся в базе данных.
 
-## Usage
+Смена числа на клиентской стороне осуществляется Ajax запросом с csrf токеном.
 
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
-```
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+Получить данное число, например, посылая напрямую POST запрос, могут только авторизованные через OAuth GitHub пользователи.
